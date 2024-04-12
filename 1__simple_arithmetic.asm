@@ -25,19 +25,30 @@ section .text  ; Esta sección se usa para el código del programa
     mov rbx, [num2]
     
     ; Sumar num1 y num2 y guardar el resultado en resAdd
-    ; TODO: COMPLETAR
+    ADDRAX, RBX ; hace la suma y siempre la guarda en el lado izquierdo
+    MOV [reAdd], RAX ; entra a la memoria a guardar el contenido de RAX
 
     ; Restar num1 y num2 y guardar el resultado en resSub
-    ; TODO: COMPLETAR
+    MOV RAX, [num1] ; Pisa lo que habia quedado de antes
+    SUB RAX, RBX
+    MOV[resSub], RAX
     
     ; Multiplicar num1 y num2 y guardar el resultado en resMul
-    ; TODO: COMPLETAR
+    MOV RAX, [num1]
+    IMUL RAX, RBY
+    MOV[resMul], RAX
     
     ; Dividir num1 y num2 y guardar el resultado en resDiv
-    ; TODO: COMPLETAR
+    MOV RAX, [num1]
+    DIV RBX
+    MOV[resDiv], RAX
 
     ; Calcula finalResult = resAdd * resSub + resDiv - resMul
-    ; TODO: COMPLETAR
+    MOV RAX, [resAdd]
+    IMUL RAX, [result]
+    ADD RAX, [resDiv]
+    SUB RAX, [resMul]
+    MOV[finalResult], RAX
 
     ; Establecer el resultado final como valor de salida del programa
     mov edi, dword [finalResult] ; Ahora usamos edi aquí porque es donde el sistema operativo espera un valor de 32 bits para la salida.
@@ -45,3 +56,6 @@ section .text  ; Esta sección se usa para el código del programa
     ; termina el programa
     mov eax, 60
     syscall
+
+
+8
